@@ -4,6 +4,7 @@ from datetime import datetime
 import threading
 import os, glob
 import smtplib, ssl
+from playsound import playsound
 
 """
 Using Mongodb to store Data:
@@ -108,7 +109,8 @@ def getResponse(turnId):
     global timerCounter, response
     response = flags.find_one({})["Response"]
     if (response == True):
-        print("door opened")
+        print("The home owner accepted. Welcome!")
+        playsound(f'Audio/accept.mp3')
         timerCounter = 300
         f = flags.find_one()
         newResponse = {"$set": {"Response": False}}
